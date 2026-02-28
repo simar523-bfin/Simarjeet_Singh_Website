@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simarjeet Singh, Ph.D. — Behavioral Finance & AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f3ee;--bg2:#ede9e1;--bg3:#e4dfd5;
+  --ink:#1a1714;--ink2:#4a4540;--ink3:#8a8078;
+  --gold:#9c6b2e;--gold2:#c4893a;--gold3:#e8c27a;
+  --green:#2d5a3d;--green2:#4a8a60;
+  --red:#8b2f2f;--red2:#c44040;
+  --blue:#1e3a5f;--blue2:#2e5a9f;
+  --border:#ccc5b8;--border2:#b8b0a0;
+  --white:#ffffff;
+  --card:#faf8f5;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.6;overflow-x:hidden;}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(245,243,238,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 3rem;}
+.nav-brand{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:var(--ink);text-decoration:none;}
+.nav-brand em{color:var(--gold);font-style:normal;}
+.nav-links{display:flex;gap:1.8rem;list-style:none;}
+.nav-links a{font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink3);text-decoration:none;transition:color .2s;}
+.nav-links a:hover{color:var(--gold);}
+
+/* ── HERO SPLIT ── */
+.hero{display:grid;grid-template-columns:1.15fr 0.85fr;min-height:100vh;padding-top:58px;}
+.hero-l{padding:5rem 3rem 5rem 4rem;display:flex;flex-direction:column;justify-content:center;border-right:1px solid var(--border);}
+.tag-line{display:inline-flex;align-items:center;gap:.6rem;margin-bottom:1.8rem;}
+.tag-line::before{content:'';width:28px;height:1px;background:var(--gold);}
+.tag-line span{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);}
+h1.name{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,5vw,5.5rem);font-weight:700;line-height:.95;letter-spacing:-.02em;margin-bottom:.6rem;}
+h1.name .first{font-weight:300;font-style:italic;color:var(--ink2);display:block;}
+.hero-pos{font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:2rem;}
+.hero-bio{font-size:.95rem;color:var(--ink2);max-width:440px;line-height:1.85;margin-bottom:2.5rem;}
+.hero-bio strong{color:var(--ink);font-weight:600;}
+.kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;max-width:420px;border:1px solid var(--border);padding:1.4rem;background:var(--card);margin-bottom:2.5rem;}
+.kpi .n{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:700;color:var(--gold);line-height:1;}
+.kpi .l{font-family:'Space Mono',monospace;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-top:3px;}
+.hero-btns{display:flex;gap:.7rem;flex-wrap:wrap;}
+.btn{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;padding:.65rem 1.4rem;border-radius:2px;text-decoration:none;display:inline-flex;align-items:center;gap:.4rem;transition:all .18s;cursor:pointer;border:none;white-space:nowrap;}
+.btn-g{background:var(--gold);color:#fff;}
+.btn-g:hover{background:var(--gold2);}
+.btn-o{border:1px solid var(--border2);color:var(--ink3);background:transparent;}
+.btn-o:hover{border-color:var(--gold);color:var(--gold);}
+.btn-green{background:var(--green);color:#fff;}
+.btn-green:hover{background:var(--green2);}
+
+.hero-r{background:var(--ink);padding:5rem 3rem;display:flex;flex-direction:column;gap:1.3rem;justify-content:center;position:relative;overflow:hidden;}
+.hero-r::before{content:'SS';position:absolute;right:-2rem;bottom:-3rem;font-family:'Cormorant Garamond',serif;font-size:18rem;font-weight:700;color:rgba(255,255,255,.025);line-height:1;pointer-events:none;}
+.icard{border:1px solid rgba(255,255,255,.08);padding:1.3rem;background:rgba(255,255,255,.03);transition:background .2s;}
+.icard:hover{background:rgba(255,255,255,.06);}
+.icard-role{font-family:'Space Mono',monospace;font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.4rem;}
+.icard-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:.2rem;line-height:1.3;}
+.icard-sub{font-size:.78rem;color:rgba(255,255,255,.4);}
+.live-dot{display:inline-flex;align-items:center;gap:5px;margin-top:.4rem;}
+.live-dot::before{content:'';width:6px;height:6px;border-radius:50%;background:#4ade80;animation:blink 2s infinite;display:inline-block;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+.live-dot span{font-family:'Space Mono',monospace;font-size:.55rem;letter-spacing:.08em;color:#4ade80;}
+.interest-tags{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.4rem;}
+.itag{font-family:'Space Mono',monospace;font-size:.55rem;padding:2px 8px;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.4);border-radius:2px;}
+.contact-info{border-top:1px solid rgba(255,255,255,.07);padding-top:1rem;display:flex;flex-direction:column;gap:.4rem;}
+.contact-info a{font-family:'Space Mono',monospace;font-size:.62rem;color:rgba(255,255,255,.4);text-decoration:none;transition:color .2s;}
+.contact-info a:hover{color:rgba(255,255,255,.8);}
+
+/* ── SECTION ── */
+section.light{background:var(--bg);padding:5.5rem 4rem;}
+section.alt{background:var(--bg2);padding:5.5rem 4rem;}
+.sh{display:flex;align-items:flex-end;gap:1.5rem;margin-bottom:3rem;padding-bottom:1.2rem;border-bottom:1px solid var(--border);}
+.sh-n{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.1em;color:var(--ink3);margin-bottom:2px;}
+.sh h2{font-family:'Cormorant Garamond',serif;font-size:2.6rem;font-weight:300;color:var(--ink);line-height:1;}
+.sh h2 em{font-style:italic;color:var(--gold);}
+
+/* ── TIMELINE ── */
+.tl{max-width:860px;}
+.tli{display:grid;grid-template-columns:170px 1fr;gap:2.5rem;padding:2rem 0;border-bottom:1px solid var(--border);}
+.tli:last-child{border-bottom:none;}
+.tli-period{font-family:'Space Mono',monospace;font-size:.6rem;color:var(--ink3);line-height:1.7;padding-top:3px;}
+.tli-now{display:inline-flex;align-items:center;gap:4px;margin-top:3px;}
+.tli-now::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--green2);animation:blink 2s infinite;display:inline-block;}
+.tli-now span{font-family:'Space Mono',monospace;font-size:.52rem;color:var(--green2);}
+.tli-role{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:700;color:var(--ink);margin-bottom:.2rem;}
+.tli-org{font-family:'Space Mono',monospace;font-size:.62rem;color:var(--gold);letter-spacing:.03em;margin-bottom:.5rem;}
+.tli-courses{font-size:.82rem;color:var(--ink2);line-height:1.7;}
+.tli-courses strong{color:var(--ink);font-weight:600;}
+
+/* ── PUBLICATIONS ── */
+.pub-list{max-width:880px;}
+.pub-item{display:grid;grid-template-columns:42px 1fr;gap:1.2rem;padding:1.6rem 0;border-bottom:1px solid var(--border);align-items:start;}
+.pub-n{font-family:'Space Mono',monospace;font-size:.62rem;color:var(--ink3);padding-top:4px;text-align:right;}
+.pub-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:var(--ink);line-height:1.35;margin-bottom:.35rem;}
+.pub-meta{font-family:'Space Mono',monospace;font-size:.6rem;color:var(--ink3);line-height:1.7;}
+.pub-badges{display:flex;gap:.3rem;flex-wrap:wrap;margin-top:.4rem;}
+.bdg{font-family:'Space Mono',monospace;font-size:.52rem;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:2px;}
+.bdg-g{border:1px solid rgba(156,107,46,.4);color:var(--gold);background:rgba(156,107,46,.06);}
+.bdg-b{border:1px solid rgba(30,58,95,.3);color:var(--blue2);background:rgba(30,58,95,.05);}
+.bdg-r{border:1px solid rgba(139,47,47,.3);color:var(--red2);background:rgba(139,47,47,.05);}
+.bdg-gr{border:1px solid rgba(45,90,61,.3);color:var(--green2);background:rgba(45,90,61,.05);}
+.bdg-d{border:1px solid var(--border);color:var(--ink3);}
+
+/* ── MEDIA ── */
+.media-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:1px;background:var(--border);max-width:1100px;}
+.mc{background:var(--bg);padding:1.4rem;display:flex;flex-direction:column;gap:.55rem;transition:background .15s;}
+.mc:hover{background:var(--card);}
+.mc-outlet{font-family:'Space Mono',monospace;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:2px;width:fit-content;}
+.o-mint{background:rgba(40,120,60,.1);color:#2d7840;}
+.o-et{background:rgba(160,80,20,.1);color:#b05820;}
+.o-forbes{background:rgba(20,60,160,.1);color:#2040a0;}
+.o-hl{background:rgba(160,20,20,.1);color:#a02020;}
+.o-other{background:rgba(80,80,140,.1);color:#5050a0;}
+.mc-title{font-family:'Cormorant Garamond',serif;font-size:.98rem;font-weight:700;color:var(--ink);line-height:1.35;}
+.mc-date{font-family:'Space Mono',monospace;font-size:.55rem;color:var(--ink3);margin-top:auto;}
+
+/* ── SERVICE ── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:3rem;max-width:900px;}
+.lb h3{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:var(--ink);margin-bottom:1rem;}
+.lb ul{list-style:none;display:flex;flex-direction:column;gap:.9rem;}
+.lb li{font-size:.83rem;color:var(--ink2);padding-left:1rem;border-left:2px solid var(--border2);line-height:1.7;}
+
+/* ── EDUCATION ── */
+.edu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(245px,1fr));gap:1.3rem;max-width:950px;}
+.ec{border:1px solid var(--border);padding:1.6rem;background:var(--card);}
+.ec-deg{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:var(--ink);margin-bottom:.35rem;}
+.ec-inst{font-size:.8rem;color:var(--ink2);margin-bottom:.35rem;line-height:1.6;}
+.ec-yr{font-family:'Space Mono',monospace;font-size:.62rem;color:var(--gold);}
+.ec.special{border-color:rgba(45,90,61,.35);background:rgba(45,90,61,.04);}
+.ec.special .ec-yr{color:var(--green2);}
+.ec.ref{border-color:rgba(30,58,95,.25);background:rgba(30,58,95,.03);}
+.ec.ref .ec-yr{color:var(--blue2);}
+
+/* ── FOOTER ── */
+footer{background:var(--ink);color:rgba(255,255,255,.35);padding:2rem 4rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.8rem;}
+.fl{font-family:'Cormorant Garamond',serif;font-size:1rem;color:rgba(255,255,255,.55);}
+.fl em{color:var(--gold3);font-style:normal;}
+.fr{font-family:'Space Mono',monospace;font-size:.58rem;display:flex;flex-direction:column;gap:.25rem;text-align:right;line-height:1.7;}
+
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;}
+  section.light,section.alt{padding:3.5rem 1.5rem;}
+  .tli{grid-template-columns:1fr;gap:.4rem;}
+  .two-col{grid-template-columns:1fr;}
+  nav{padding:0 1rem;}
+  .nav-links li:nth-child(n+5){display:none;}
+  footer{padding:1.5rem;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="#">Simarjeet <em>Singh</em></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#media">Press</a></li>
+    <li><a href="#database">BF Database</a></li>
+    <li><a href="#education">Education</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="about">
+  <div class="hero-l">
+    <div class="tag-line"><span>Academic Profile · Behavioral Finance & AI</span></div>
+    <h1 class="name"><span class="first">Simarjeet</span>Singh</h1>
+    <div class="hero-pos">Ph.D. Finance &nbsp;·&nbsp; Assistant Professor &nbsp;·&nbsp; H-Index 14</div>
+    <p class="hero-bio">Educator-researcher at the intersection of <strong>Behavioral Finance</strong>, <strong>AI</strong>, and <strong>Factor Investing</strong>. 960+ citations. Recognised by <strong>OpenAI Academy</strong> for AI-integrated pedagogy. Thought leader across <em>Mint, Forbes India</em> and <em>The Economic Times</em>.</p>
+    <div class="kpi-row">
+      <div class="kpi"><div class="n">961+</div><div class="l">Citations</div></div>
+      <div class="kpi"><div class="n">14</div><div class="l">H-Index</div></div>
+      <div class="kpi"><div class="n">22+</div><div class="l">Papers</div></div>
+    </div>
+    <div class="hero-btns">
+      <a href="mailto:jeetsimarkamal93@gmail.com" class="btn btn-g">✉ Contact</a>
+      <a href="#database" class="btn btn-green">📚 BF Database</a>
+      <a href="#research" class="btn btn-o">View Research</a>
+    </div>
+  </div>
+  <div class="hero-r">
+    <div class="icard">
+      <div class="icard-role">Current Position</div>
+      <div class="icard-title">Assistant Professor — Finance</div>
+      <div class="icard-sub">University of Southampton, Delhi Campus</div>
+      <div class="live-dot"><span>CURRENT · Jan 2026–Present</span></div>
+    </div>
+    <div class="icard">
+      <div class="icard-role">Previous</div>
+      <div class="icard-title">Asst. Professor & Research Lecturer</div>
+      <div class="icard-sub">Great Lakes Institute of Management, Gurgaon · 2022–2025</div>
+    </div>
+    <div class="icard">
+      <div class="icard-role">Academic Associate · Finance</div>
+      <div class="icard-title">Indian School of Business, Mohali</div>
+      <div class="icard-sub">Apr 2021 – Sep 2022</div>
+    </div>
+    <div class="icard">
+      <div class="icard-role">Research &amp; Teaching Interests</div>
+      <div class="interest-tags">
+        <span class="itag">Behavioral Finance</span><span class="itag">Behavioral AI</span>
+        <span class="itag">Factor Investing</span><span class="itag">DeFi</span>
+        <span class="itag">Digital Currencies</span><span class="itag">Computational Finance</span>
+        <span class="itag">Financial Modelling</span><span class="itag">Corporate Finance</span>
+      </div>
+    </div>
+    <div class="contact-info">
+      <a href="mailto:jeetsimarkamal93@gmail.com">✉ jeetsimarkamal93@gmail.com</a>
+      <a href="https://scholar.google.com" target="_blank">🎓 Google Scholar · H-index 14 · 961 Citations</a>
+      <a href="#">🏛 University of Southampton, Delhi Campus</a>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="alt" id="experience">
+  <div class="sh"><span class="sh-n">01</span><h2>Academic <em>Experience</em></h2></div>
+  <div class="tl">
+    <div class="tli">
+      <div class="tli-period">Jan 2026 – Present<div class="tli-now"><span>CURRENT</span></div></div>
+      <div><div class="tli-role">Assistant Professor — Finance</div><div class="tli-org">University of Southampton, Delhi Campus</div><div class="tli-courses"><strong>Courses:</strong> Computational Finance · Derivative Securities Analysis · Fixed Income Securities Analysis</div></div>
+    </div>
+    <div class="tli">
+      <div class="tli-period">Aug–Dec 2025</div>
+      <div><div class="tli-role">Visiting Faculty</div><div class="tli-org">University of Southampton, Delhi Campus</div><div class="tli-courses"><strong>Courses:</strong> Behavioural Finance</div></div>
+    </div>
+    <div class="tli">
+      <div class="tli-period">Oct 2022 – Dec 2025</div>
+      <div><div class="tli-role">Assistant Professor — Finance &amp; Research Lecturer</div><div class="tli-org">Great Lakes Institute of Management, Gurgaon</div><div class="tli-courses"><strong>Courses:</strong> Financial Modelling · Behavioural Finance · Personal Finance · Excel for Business · Prompt Engineering Workshop</div></div>
+    </div>
+    <div class="tli">
+      <div class="tli-period">Feb–May 2025</div>
+      <div><div class="tli-role">Visiting Professor</div><div class="tli-org">National Power Training Institute</div><div class="tli-courses"><strong>Courses:</strong> Financial Accounting</div></div>
+    </div>
+    <div class="tli">
+      <div class="tli-period">Apr 2021 – Sep 2022</div>
+      <div><div class="tli-role">Academic Associate — Finance</div><div class="tli-org">Indian School of Business, Mohali</div><div class="tli-courses">Assisted senior faculty, tutorials, grading and academic coordination.</div></div>
+    </div>
+    <div class="tli">
+      <div class="tli-period">Aug 2016 – Mar 2022</div>
+      <div><div class="tli-role">Junior / Senior Research Fellow (JRF/SRF)</div><div class="tli-org">Punjabi University, Patiala</div><div class="tli-courses">Doctoral fellowship in Finance. Presented research at AOM and BERC.</div></div>
+    </div>
+    <div class="tli">
+      <div class="tli-period">Jan–May 2016</div>
+      <div><div class="tli-role">Assistant Professor — Commerce</div><div class="tli-org">GTB National College, Ludhiana</div><div class="tli-courses"><strong>Courses:</strong> Project Finance · Management Accounting</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section class="light" id="research">
+  <div class="sh"><span class="sh-n">02</span><h2>Journal <em>Publications</em></h2></div>
+  <div class="pub-list">
+    <div class="pub-item"><div class="pub-n">01</div><div><div class="pub-title">Momentum investing: a systematic literature review and bibliometric analysis</div><div class="pub-meta">Singh, S. & Walia, N. · Management Review Quarterly 72.1 (2022): 87–113 · Springer Nature</div><div class="pub-badges"><span class="bdg bdg-g">Scopus Q1</span><span class="bdg bdg-b">ABS-1</span><span class="bdg bdg-b">ABDC-B</span></div></div></div>
+    <div class="pub-item"><div class="pub-n">02</div><div><div class="pub-title">Mapping the field of behavioural biases: A literature review using bibliometric analysis</div><div class="pub-meta">Jain, J., Walia, N., Singh, S. & Jain, E. · Management Review Quarterly (2021): 1–33 · Springer Nature</div></div></div>
+    <div class="pub-item"><div class="pub-n">03</div><div><div class="pub-title">Mapping the literature on financial well-being: a systematic literature review and bibliometric analysis</div><div class="pub-meta">Kaur, G., Singh, M. & Singh, S. · International Social Science Journal 71, no. 241–242 (2021): 217–241</div></div></div>
+    <div class="pub-item"><div class="pub-n">04</div><div><div class="pub-title">Taming momentum crashes through triple momentum investing</div><div class="pub-meta">Singh, S., Walia, N., Jain, J. & Garg, A. · Journal of Public Affairs 22, no. 3 (2022) · Wiley</div></div></div>
+    <div class="pub-item"><div class="pub-n">05</div><div><div class="pub-title">Behavioural biases affecting investors' decision-making process: a scale development approach</div><div class="pub-meta">Jain, J., Walia, N., Kaur, M. & Singh, S. · Management Research Review 45, no. 8 (2022): 1079–1098 · Emerald</div></div></div>
+    <div class="pub-item"><div class="pub-n">06</div><div><div class="pub-title">Identification and prioritization of the risks in mass adoption of AI-driven stable coins</div><div class="pub-meta">Sood, K., Singh, S. et al. · Resources Policy 81 (2023): 103235 · Elsevier</div></div></div>
+    <div class="pub-item"><div class="pub-n">07</div><div><div class="pub-title">A fuzzy analytical hierarchy process framework for stock selection in the Indian stock market</div><div class="pub-meta">Jain, J., Walia, N., Gupta, S., Aggarwal, K. & Singh, S. · Journal of Public Affairs 22, no. 4 (2022)</div></div></div>
+    <div class="pub-item"><div class="pub-n">08</div><div><div class="pub-title">Contagious diseases and tourism: a systematic review based on bibliometric and content analysis</div><div class="pub-meta">Goel, P., Garg, A., Walia, N. et al. · Quality & Quantity (2021): 1–26</div></div></div>
+    <div class="pub-item"><div class="pub-n">09</div><div><div class="pub-title">Peeping in the minds of MOOCs instructors: using fuzzy approach to understand motivational factors</div><div class="pub-meta">Goel, P., Raj, S., Garg, A., Singh, S. & Gupta, S. · Online Information Review 47, no. 1 (2023): 20–40</div></div></div>
+    <div class="pub-item"><div class="pub-n">10</div><div><div class="pub-title">Modeling collaborative consumption by extending self-determination theory</div><div class="pub-meta">Garg, A., Sachdeva, M., Singh, S. & Goel, P. · Social Responsibility Journal 18, no. 4 (2021): 839–857</div></div></div>
+    <div class="pub-item"><div class="pub-n">11</div><div><div class="pub-title">Risk-managed momentum: evidence from Indian stock market</div><div class="pub-meta">Singh, S., Walia, N., Panda, P. & Gupta, S. · FIIB Business Review 11, no. 3 (2022): 347–358</div></div></div>
+    <div class="pub-item"><div class="pub-n">12</div><div><div class="pub-title">A systematic literature review and bibliometric analysis of noise trading</div><div class="pub-meta">Gupta, S., Walia, N., Singh, S. & Gupta, S. · Qualitative Research in Financial Markets 15, no. 1 (2023): 190–215</div></div></div>
+    <div class="pub-item"><div class="pub-n">13</div><div><div class="pub-title">Risk-managed time-series momentum: an emerging economy experience</div><div class="pub-meta">Singh, S., Walia, N., Bekiros, S. et al. · J. of Economics, Finance and Administrative Science 27, no. 54 (2022): 328–343</div></div></div>
+    <div class="pub-item"><div class="pub-n">14</div><div><div class="pub-title">The quest for CBDC: identifying and prioritising motivations for launching central bank digital currencies</div><div class="pub-meta">Singh, S. et al. · Quality & Quantity (2022): 1–16</div></div></div>
+    <div class="pub-item"><div class="pub-n">15</div><div><div class="pub-title">Initial coin offerings: current trends and future research directions</div><div class="pub-meta">Wats, S., Joshi, M. & Singh, S. · Quality & Quantity (2023): 1–27</div></div></div>
+    <div class="pub-item"><div class="pub-n">16</div><div><div class="pub-title">What Drives Lending Inquisitors' Judgement & Decision-Making: Behavioural Factors Analysis</div><div class="pub-meta">Kaur, S. & Singh, S. · Accounting, Economics, and Law: A Convivium (2022)</div></div></div>
+    <div class="pub-item"><div class="pub-n">17</div><div><div class="pub-title">Heuristic Biases as Mental Shortcuts to Investment Decision-Making: A Mediation Analysis of Risk Perception</div><div class="pub-meta">Jain, J., Walia, N., Singla, H., Singh, S. et al. · Risks 11, no. 4 (2023): 72</div></div></div>
+    <div class="pub-item"><div class="pub-n">18</div><div><div class="pub-title">The quest for ICO: identifying and prioritising factors influencing initial coin offering selection</div><div class="pub-meta">Wats, S., Singh, S. & Gupta, S. · International Social Science Journal</div></div></div>
+    <div class="pub-item"><div class="pub-n">19</div><div><div class="pub-title">Risk analysis in decentralized finance (DeFi): a fuzzy-AHP approach</div><div class="pub-meta">Kaur, S., Singh, S., Gupta, S. & Wats, S. · Risk Management 25, no. 2 (2023)</div></div></div>
+    <div class="pub-item"><div class="pub-n">20</div><div><div class="pub-title">Forecasting future trends in crude oil production in India by using Box-Jenkins ARIMA</div><div class="pub-meta">Mishra, A.K., Singh, S. et al. · AIP Conference Proceedings, vol. 2481, no. 1 · AIP Publishing, 2022</div></div></div>
+    <div class="pub-item"><div class="pub-n">21</div><div><div class="pub-title">M-CBDCs: A Multivocal Literature Review</div><div class="pub-meta">China Financial Review · IF: 5.7</div><div class="pub-badges"><span class="bdg bdg-g">IF 5.7</span></div></div></div>
+    <div class="pub-item"><div class="pub-n">22</div><div><div class="pub-title">Watch Out, You are Live! Toward Understanding the Impact of AI on Privacy of Employees</div><div class="pub-meta">Communications of the AIS (CAIS) · Forthcoming</div><div class="pub-badges"><span class="bdg bdg-gr">ABDC-A</span></div></div></div>
+  </div>
+  <!-- Under Review -->
+  <div style="margin-top:2.5rem;max-width:880px;">
+    <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:300;font-style:italic;color:var(--ink2);margin-bottom:1rem;">Under Review</h3>
+    <div class="pub-item"><div class="pub-n">R1</div><div><div class="pub-title">Conceptualizing Reverse Acquihiring</div><div class="pub-meta">Business Horizons · Revisions Submitted</div><div class="pub-badges"><span class="bdg bdg-r">Under Review</span></div></div></div>
+  </div>
+  <!-- Book Reviews -->
+  <div style="margin-top:2rem;max-width:880px;">
+    <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:300;font-style:italic;color:var(--ink2);margin-bottom:1rem;">Book Reviews</h3>
+    <div class="pub-item"><div class="pub-n">BR1</div><div><div class="pub-title">DeFi: The Future of Finance</div><div class="pub-meta">Qualitative Research in Financial Markets · Emerald Publications</div></div></div>
+    <div class="pub-item"><div class="pub-n">BR2</div><div><div class="pub-title">Blockchain and Banking</div><div class="pub-meta">IIM Kozhikode Society & Management Review · Sage Publications</div></div></div>
+    <div class="pub-item"><div class="pub-n">BR3</div><div><div class="pub-title">The Future of Money: How the Digital Revolution Is Transforming Currencies and Finance</div><div class="pub-meta">Journal of Evolutionary Economics · Accepted</div><div class="pub-badges"><span class="bdg bdg-gr">ABDC-A</span></div></div></div>
+  </div>
+</section>
+
+<!-- MEDIA -->
+<section class="alt" id="media">
+  <div class="sh"><span class="sh-n">03</span><h2>Popular <em>Press</em></h2></div>
+  <div class="media-grid">
+    <div class="mc"><span class="mc-outlet o-mint">Mint</span><div class="mc-title">The Confidence Trap: Why AI Makes Us Worse Investors</div><div class="mc-date">November 2025 · with Hardeep Singh Mundi</div></div>
+    <div class="mc"><span class="mc-outlet o-mint">Mint</span><div class="mc-title">Money and Happiness: The Chicken-and-Egg Problem</div><div class="mc-date">April 2025 · with Hardeep Singh Mundi</div></div>
+    <div class="mc"><span class="mc-outlet o-mint">Mint</span><div class="mc-title">Sachet SIPs: Can ₹250 a Month Create an Investment Boom in India?</div><div class="mc-date">February 2025 · with Chandni Rani</div></div>
+    <div class="mc"><span class="mc-outlet o-mint">Mint</span><div class="mc-title">Empower Your Children by Fostering Financial Wisdom Early</div><div class="mc-date">February 2025</div></div>
+    <div class="mc"><span class="mc-outlet o-forbes">Forbes India</span><div class="mc-title">The Rise of Custom GPTs and Talent Mobility: A Future Trend in AI-driven Business</div><div class="mc-date">February 2025 · with Sanchita Kuchi</div></div>
+    <div class="mc"><span class="mc-outlet o-mint">Mint</span><div class="mc-title">SEBI's Liquidity Window: A Tailored Fix for India's Corporate Bond Market</div><div class="mc-date">October 2024 · with Hardeep Singh Mundi</div></div>
+    <div class="mc"><span class="mc-outlet o-mint">Mint</span><div class="mc-title">IPO Investor: Why the Rush to Sell Might Be a Missed Opportunity</div><div class="mc-date">October 2024 · with VP Singh</div></div>
+    <div class="mc"><span class="mc-outlet o-other">BW Education</span><div class="mc-title">Professor Unpacks Entrepreneurial Finance and Funding Strategies</div><div class="mc-date">October 2024</div></div>
+    <div class="mc"><span class="mc-outlet o-other">Good Returns</span><div class="mc-title">77 Years of Financial Independence: Tracing the Evolution of India's Financial Sector</div><div class="mc-date">August 2024</div></div>
+    <div class="mc"><span class="mc-outlet o-mint">Mint</span><div class="mc-title">Sebi's 'Investment Strategies': India's Answer to Liquid Alternatives</div><div class="mc-date">August 2024</div></div>
+    <div class="mc"><span class="mc-outlet o-et">ET Education</span><div class="mc-title">Strategic Learning in the AI Era: Enhancing Business Education with Bloom's Taxonomy</div><div class="mc-date">July 2024 · with Jones Mathew</div></div>
+    <div class="mc"><span class="mc-outlet o-hl">BusinessLine · The Hindu</span><div class="mc-title">Giant Strides: Nvidia — The Linchpin of the AI Revolution</div><div class="mc-date">July 2024 · with Sanchita Kuchi & Raj Krishnan Shankar</div></div>
+    <div class="mc"><span class="mc-outlet o-mint">Mint</span><div class="mc-title">The Hidden Cost of Family Financial Dependence</div><div class="mc-date">July 2024 · with Hardeep Singh Mundi</div></div>
+    <div class="mc"><span class="mc-outlet o-other">FirstPost</span><div class="mc-title">COP29: How $300 Billion Climate Funding is an Optical Illusion</div><div class="mc-date">June 2024 · with Kirti Sharma</div></div>
+  </div>
+</section>
+
+<!-- SERVICE -->
+<section class="light">
+  <div class="sh"><span class="sh-n">04</span><h2>Service & <em>Leadership</em></h2></div>
+  <div class="two-col">
+    <div class="lb">
+      <h3>Academic Service</h3>
+      <ul>
+        <li>Reviewed 35+ articles in Management Review Quarterly, Journal of Behavioral Finance, Qualitative Research in Financial Markets, Journal of Behavioral and Experimental Economics, and others</li>
+        <li>Editorial Member — Nurture (Scopus-indexed)</li>
+        <li>Resource Person at XLRI, NIT Kurukshetra, NPTI, Kurukshetra University, Indian Institute of Production Management — on SLR, AI & Finance, Corporate Finance</li>
+        <li>Organised International Conferences, FDPs & MDPs on advanced financial methodologies and AI-driven tools</li>
+      </ul>
+    </div>
+    <div class="lb">
+      <h3>Institutional Leadership</h3>
+      <ul>
+        <li>Led AI initiatives at institutional level; recognised by OpenAI Academy (one of the most popular videos globally)</li>
+        <li>Initiated and managed the Self-Interest Club for student engagement</li>
+        <li>Established Sports Committee and Library Committee</li>
+        <li>Conducted student mentorship and admission interviews</li>
+        <li>Teaching excellence scores consistently above 4.5 / 5.0</li>
+        <li>Presented research at AOM (Academy of Management) and BERC</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<!-- ═══════════════════════════════════════════════════════
+     BEHAVIORAL FINANCE DATABASE SECTION
+═══════════════════════════════════════════════════════ -->
+<style>
+/* DATABASE DARK SECTION */
+#database{background:#111318;color:#e8e3da;padding:0;scroll-margin-top:58px;}
+.db-top{padding:3.5rem 4rem 2.5rem;border-bottom:1px solid #222840;position:relative;overflow:hidden;}
+.db-top::after{content:'BIAS';position:absolute;right:-1rem;top:-1rem;font-family:'Cormorant Garamond',serif;font-size:13rem;font-weight:700;color:rgba(196,136,58,.04);line-height:1;pointer-events:none;user-select:none;}
+.db-top-row{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:.8rem;}
+.db-top h2{font-family:'Cormorant Garamond',serif;font-size:2.6rem;font-weight:300;color:#e8e3da;}
+.db-top h2 em{font-style:italic;color:#c4893a;}
+.db-top-desc{font-family:'Space Mono',monospace;font-size:.62rem;color:#5a6070;letter-spacing:.05em;text-transform:uppercase;line-height:1.9;max-width:640px;margin-top:.5rem;}
+.db-cnt{font-family:'Space Mono',monospace;font-size:.68rem;color:#c4893a;border:1px solid rgba(196,136,58,.4);padding:4px 14px;border-radius:2px;white-space:nowrap;flex-shrink:0;}
+.db-jrow{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:1.2rem;}
+.dj{font-family:'Space Mono',monospace;font-size:.55rem;letter-spacing:.07em;padding:2px 8px;border:1px solid #222840;color:#5a6070;border-radius:2px;text-transform:uppercase;}
+
+/* CONTROLS */
+.db-ctrl{padding:1rem 4rem;background:rgba(17,19,24,.97);backdrop-filter:blur(8px);border-bottom:1px solid #222840;position:sticky;top:58px;z-index:80;display:flex;flex-direction:column;gap:.65rem;}
+.db-ctrl-top{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;}
+.db-sw{flex:1;min-width:200px;position:relative;}
+.db-sw input{width:100%;background:#0d0f14;border:1px solid #222840;color:#e8e3da;font-family:'Space Mono',monospace;font-size:.75rem;padding:.55rem .75rem .55rem 2rem;outline:none;border-radius:3px;transition:border-color .2s;}
+.db-sw input:focus{border-color:#c4893a;}
+.db-sw input::placeholder{color:#4a5060;}
+.db-si{position:absolute;left:.65rem;top:50%;transform:translateY(-50%);color:#4a5060;pointer-events:none;}
+.db-sort{font-family:'Space Mono',monospace;font-size:.6rem;background:#0d0f14;border:1px solid #222840;color:#8892a0;padding:.5rem .7rem;border-radius:3px;outline:none;cursor:pointer;}
+.db-fwrap{display:flex;flex-wrap:wrap;gap:.3rem;}
+.db-f{font-family:'Space Mono',monospace;font-size:.56rem;letter-spacing:.04em;text-transform:uppercase;padding:.38rem .75rem;background:transparent;border:1px solid #222840;color:#5a6070;cursor:pointer;border-radius:2px;transition:all .14s;white-space:nowrap;}
+.db-f:hover{border-color:#5a6070;color:#e8e3da;}
+.db-f.on{background:#c4893a;border-color:#c4893a;color:#0d0f14;font-weight:700;}
+.db-bar{padding:.5rem 4rem;border-bottom:1px solid #222840;font-family:'Space Mono',monospace;font-size:.6rem;color:#5a6070;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
+.db-bar span{color:#c4893a;}
+.db-chips{display:flex;gap:.3rem;flex-wrap:wrap;}
+.db-chip{font-family:'Space Mono',monospace;font-size:.52rem;background:rgba(196,136,58,.08);border:1px solid rgba(196,136,58,.22);color:#c4893a;padding:2px 8px;border-radius:2px;cursor:pointer;}
+.db-chip:hover{background:rgba(196,136,58,.18);}
+
+/* CARDS */
+.db-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:1px;background:#222840;}
+.dbc{background:#111318;padding:1.4rem;display:flex;flex-direction:column;gap:.5rem;transition:background .14s;animation:cIn .22s ease both;}
+.dbc:hover{background:#161b24;}
+@keyframes cIn{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:translateY(0);}}
+.dbc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:.4rem;}
+.dbc-pill{font-family:'Space Mono',monospace;font-size:.52rem;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:2px;flex-shrink:0;}
+.dbc-yr{font-family:'Space Mono',monospace;font-size:.62rem;color:#5a6070;flex-shrink:0;}
+.dbc-title{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:#e8e3da;line-height:1.3;}
+.dbc-authors{font-family:'Space Mono',monospace;font-size:.6rem;color:#8892a0;line-height:1.5;}
+.dbc-journal{font-family:'Space Mono',monospace;font-size:.58rem;color:#5a6070;}
+.dbc-journal strong{color:#7eb8a4;font-weight:500;}
+.dbc-abstract{font-size:.78rem;color:#5a6070;line-height:1.65;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+.dbc-links{display:flex;gap:.4rem;margin-top:auto;padding-top:.3rem;flex-wrap:wrap;}
+.dbc-lnk{font-family:'Space Mono',monospace;font-size:.55rem;letter-spacing:.04em;text-transform:uppercase;padding:3px 9px;text-decoration:none;border-radius:2px;transition:all .14s;}
+.dbc-lnk.pub{border:1px solid #222840;color:#5a6070;}
+.dbc-lnk.pub:hover{border-color:#8892a0;color:#e8e3da;}
+.dbc-lnk.wp{border:1px solid rgba(126,184,164,.35);color:#7eb8a4;background:rgba(126,184,164,.05);}
+.dbc-lnk.wp:hover{background:rgba(126,184,164,.12);}
+.db-empty{padding:5rem;text-align:center;grid-column:1/-1;}
+.db-empty h3{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:#5a6070;font-style:italic;font-weight:300;}
+
+/* BIAS PILL COLOURS — one per bias type */
+.b-loss{background:rgba(220,70,70,.15);color:#e07070;}
+.b-overconfidence{background:rgba(220,140,50,.15);color:#d49040;}
+.b-anchoring{background:rgba(80,160,220,.15);color:#60b0e8;}
+.b-availability{background:rgba(180,80,220,.15);color:#c060e0;}
+.b-representativeness{background:rgba(80,200,180,.15);color:#50d0b8;}
+.b-framing{background:rgba(220,180,60,.15);color:#d8b840;}
+.b-mental{background:rgba(60,160,220,.15);color:#40b0e8;}
+.b-disposition{background:rgba(200,160,80,.15);color:#c8a040;}
+.b-sunk{background:rgba(200,100,100,.15);color:#d06868;}
+.b-herding{background:rgba(220,80,160,.15);color:#d860b0;}
+.b-hindsight{background:rgba(100,180,100,.15);color:#68c068;}
+.b-status-quo{background:rgba(120,100,220,.15);color:#9880e0;}
+.b-gamblers{background:rgba(220,120,80,.15);color:#d88050;}
+.b-recency{background:rgba(80,180,220,.15);color:#60c0e8;}
+.b-confirmation{background:rgba(220,80,80,.15);color:#e05050;}
+.b-ambiguity{background:rgba(140,100,200,.15);color:#b080d8;}
+.b-regret{background:rgba(180,100,180,.15);color:#c070c0;}
+.b-hyperbolic{background:rgba(220,160,60,.15);color:#e0a030;}
+.b-home{background:rgba(60,160,100,.15);color:#40c070;}
+.b-mood{background:rgba(200,100,60,.15);color:#d06838;}
+.b-attention{background:rgba(220,220,60,.15);color:#d0d030;}
+.b-narrative{background:rgba(100,60,220,.15);color:#8050e0;}
+.b-momentum{background:rgba(60,200,160,.15);color:#40c8a0;}
+.b-limits{background:rgba(180,60,60,.15);color:#c84040;}
+.b-prospect{background:rgba(160,80,220,.15);color:#b060e0;}
+</style>
+
+<section id="database">
+<div class="db-top">
+  <div class="db-top-row">
+    <div>
+      <h2>Behavioral Finance <em>Literature Database</em></h2>
+      <div class="db-top-desc">Seminal &amp; contemporary works on behavioural biases applied in finance · Curated by Simarjeet Singh<br>Organised by bias type · Working paper links freely accessible · 🔒 Published · 🔓 Free Working Paper</div>
+    </div>
+    <span class="db-cnt" id="dbBadge">— papers</span>
+  </div>
+  <div class="db-jrow">
+    <span class="dj">JF</span><span class="dj">RFS</span><span class="dj">JFE</span><span class="dj">JFQA</span>
+    <span class="dj">QJE</span><span class="dj">AER</span><span class="dj">JPE</span><span class="dj">Econometrica</span>
+    <span class="dj">RES</span><span class="dj">MS</span><span class="dj">JBF</span><span class="dj">JBEF</span>
+  </div>
+</div>
+
+<div class="db-ctrl">
+  <div class="db-ctrl-top">
+    <div class="db-sw">
+      <span class="db-si">⌕</span>
+      <input type="text" id="dbSearch" placeholder="Search title, author, bias, journal…"/>
+    </div>
+    <select class="db-sort" id="dbSort">
+      <option value="year-desc">Newest First</option>
+      <option value="year-asc">Oldest First</option>
+      <option value="title">Title A–Z</option>
+    </select>
+  </div>
+  <div class="db-fwrap" id="dbFilters"></div>
+</div>
+
+<div class="db-bar">
+  Showing <span id="dbShow">0</span> of <span id="dbTotal">0</span> papers
+  <div class="db-chips" id="dbChips"></div>
+</div>
+
+<div class="db-grid" id="dbGrid"></div>
+</section>
+
+<!-- EDUCATION -->
+<section class="alt" id="education">
+  <div class="sh"><span class="sh-n">05</span><h2>Education & <em>Credentials</em></h2></div>
+  <div class="edu-grid">
+    <div class="ec"><div class="ec-deg">Ph.D. in Finance</div><div class="ec-inst">USAM, Punjabi University, Patiala · JRF/SRF Fellowship</div><div class="ec-yr">2022</div></div>
+    <div class="ec"><div class="ec-deg">M.Com. with Distinction</div><div class="ec-inst">Accounting & Finance · Punjab University, Chandigarh</div><div class="ec-yr">2015</div></div>
+    <div class="ec"><div class="ec-deg">B.Com. General</div><div class="ec-inst">Punjab University, Chandigarh, India</div><div class="ec-yr">2013</div></div>
+    <div class="ec special"><div class="ec-deg">OpenAI Academy</div><div class="ec-inst">Recognised for AI-integrated teaching practices. One of the most popular videos on the platform globally.</div><div class="ec-yr">2024–25</div></div>
+    <div class="ec"><div class="ec-deg">MOOCs & Workshops</div><div class="ec-inst">Financial econometrics and data analytics at premier institutions across India</div><div class="ec-yr">Ongoing</div></div>
+    <div class="ec ref"><div class="ec-deg">References</div><div class="ec-inst"><strong>Dr. Subodha Kumar</strong>, Full Professor, Fox School of Business<br>subodha@temple.edu<br><br><strong>Dr. Raj Krishnan Shankar</strong>, Full Professor, GLIM Chennai<br>rajkrishnan.s@greatlakes.edu.in</div><div class="ec-yr">Available on request</div></div>
+  </div>
+</section>
+
+<footer>
+  <div class="fl">Simarjeet <em>Singh</em>, Ph.D.</div>
+  <div class="fr">
+    <span>jeetsimarkamal93@gmail.com · +91-9646244332</span>
+    <span>University of Southampton, Delhi Campus · 2025</span>
+    <span>🔓 Working paper links freely accessible · 🔒 Journal links may require institutional access</span>
+  </div>
+</footer>
+
+<!-- ════════════════ DATABASE SCRIPT ════════════════ -->
+<script>
+const BIAS={
+  loss:"Loss Aversion",overconfidence:"Overconfidence",anchoring:"Anchoring Bias",
+  availability:"Availability Heuristic",representativeness:"Representativeness",
+  framing:"Framing Effects",mental:"Mental Accounting",disposition:"Disposition Effect",
+  sunk:"Sunk Cost Fallacy",herding:"Herding & Social Proof",hindsight:"Hindsight Bias",
+  "status-quo":"Status Quo Bias",gamblers:"Gambler's Fallacy",recency:"Recency / Extrapolation",
+  confirmation:"Confirmation Bias",ambiguity:"Ambiguity Aversion",regret:"Regret Aversion",
+  hyperbolic:"Hyperbolic Discounting",home:"Home Bias",mood:"Mood & Affect",
+  attention:"Attention Bias",narrative:"Narrative & Stories",momentum:"Momentum (Behavioral)",
+  limits:"Limits to Arbitrage",prospect:"Prospect Theory"
+};
+
+const P=[
+/* ── PROSPECT THEORY ── */
+{t:"Prospect Theory: An Analysis of Decision under Risk",a:"Kahneman, D. & Tversky, A.",y:1979,j:"Econometrica",b:"prospect",x:"Seminal paper establishing prospect theory. Value function is concave for gains and convex for losses with a kink at the reference point; people are loss averse and overweight small probabilities.",pub:"https://doi.org/10.2307/1914185",wp:"https://www.uzh.ch/cmsssl/suz/dam/jcr:00000000-64a0-5b1c-0000-00003b7ec704/10.05-kahneman-tversky-79.pdf"},
+{t:"Advances in Prospect Theory: Cumulative Representation of Uncertainty",a:"Tversky, A. & Kahneman, D.",y:1992,j:"Journal of Risk & Uncertainty",b:"prospect",x:"Extends prospect theory with cumulative probability weighting, correcting violations of stochastic dominance while retaining loss aversion and diminishing sensitivity.",pub:"https://doi.org/10.1007/BF00122574",wp:"https://www.uzh.ch/cmsssl/suz/dam/jcr:00000000-64a0-5b1c-0000-00003b7ec704/10.05-tversky-kahneman-92.pdf"},
+{t:"Prospect Theory and Stock Market Anomalies",a:"Barberis, N., Jin, L. & Wang, B.",y:2021,j:"JF",b:"prospect",x:"A unified prospect theory model explains a wide range of anomalies including momentum, value, and the size effect in stock markets.",pub:"https://doi.org/10.1111/jofi.13061",wp:"https://www.nber.org/papers/w21600.pdf"},
+{t:"Myopic Loss Aversion and the Equity Premium Puzzle",a:"Benartzi, S. & Thaler, R.H.",y:1995,j:"QJE",b:"prospect",x:"Explains the equity premium through investors who are loss averse and evaluate portfolios too frequently, combining myopic loss aversion with mental accounting.",pub:"https://doi.org/10.2307/2118511",wp:"https://eml.berkeley.edu/~craine/EconH195/Fall_15/webpage/Benartzi_Thaler_MyopicLossAversion1995.pdf"},
+{t:"Gambling Preferences, Options Markets, and Volatility",a:"Doran, J., Jiang, D. & Peterson, D.",y:2012,j:"JFQA",b:"prospect",x:"Investors with gambling preferences under prospect theory demand lottery-like payoffs in options, driving implied volatility patterns.",pub:"https://doi.org/10.1017/S002210901100019X",wp:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1363543"},
+
+/* ── LOSS AVERSION ── */
+{t:"Loss Aversion in Riskless Choice: A Reference-Dependent Model",a:"Tversky, A. & Kahneman, D.",y:1991,j:"QJE",b:"loss",x:"Demonstrates loss aversion in riskless consumer choice — losses loom larger than equivalent gains — using reference dependence to explain the endowment effect.",pub:"https://doi.org/10.2307/2937956",wp:"https://econ.nyu.edu/user/debrajr/Tversky_Kahneman91.pdf"},
+{t:"The Endowment Effect, Loss Aversion, and Status Quo Bias",a:"Kahneman, D., Knetsch, J.L. & Thaler, R.H.",y:1991,j:"Journal of Economic Perspectives",b:"loss",x:"Reviews evidence that people demand much more to give up an object than they are willing to pay for it—the endowment effect. Loss aversion provides a unified explanation.",pub:"https://doi.org/10.1257/jep.5.1.193",wp:"https://www.jstor.org/stable/1942711"},
+{t:"Realization Utility",a:"Barberis, N. & Xiong, W.",y:2012,j:"JFE",b:"loss",x:"Investors derive utility from realized gains and losses at time of sale. The model predicts the disposition effect, high trading volume, and negative momentum.",pub:"https://doi.org/10.1016/j.jfineco.2012.01.002",wp:"https://www.nber.org/papers/w14440.pdf"},
+{t:"Labor Supply of New York City Cabdrivers: One Day at a Time",a:"Camerer, C., Babcock, L., Loewenstein, G. & Thaler, R.",y:1997,j:"QJE",b:"loss",x:"Cabdrivers set daily income targets and quit once they hit them—loss aversion applied to labor supply. High-wage days produce fewer hours, the opposite of standard theory.",pub:"https://doi.org/10.1162/003355397555244",wp:"https://www.jstor.org/stable/2951248"},
+{t:"First-Day Returns, New Issues Puzzles, and Loss Aversion",a:"Loughran, T. & Ritter, J.R.",y:2002,j:"RFS",b:"loss",x:"IPO underpricing is explained through a prospect theory framework where issuers are less bothered by money left on the table when they have simultaneously experienced large wealth increases.",pub:"https://doi.org/10.1093/rfs/15.2.413",wp:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=271676"},
+
+/* ── OVERCONFIDENCE ── */
+{t:"Boys Will Be Boys: Gender, Overconfidence, and Common Stock Investment",a:"Barber, B.M. & Odean, T.",y:2001,j:"QJE",b:"overconfidence",x:"Men trade 45% more than women and consequently earn lower net returns. Overconfident investors trade excessively, hurting their own performance.",pub:"https://doi.org/10.1162/003355301556400",wp:"https://faculty.haas.berkeley.edu/odean/papers/gender/BoysWillBeBoys.pdf"},
+{t:"Trading Is Hazardous to Your Wealth",a:"Barber, B.M. & Odean, T.",y:2000,j:"JF",b:"overconfidence",x:"Individual investors who trade most actively earn 6.5 pp less per year than the market. Overconfidence-driven trading destroys value.",pub:"https://doi.org/10.1111/0022-1082.00226",wp:"https://faculty.haas.berkeley.edu/odean/papers/performance/Odean%20Performance%20Study.pdf"},
+{t:"Investor Psychology and Asset Pricing",a:"Daniel, K., Hirshleifer, D. & Subrahmanyam, A.",y:1998,j:"JF",b:"overconfidence",x:"Overconfidence and biased self-attribution generate momentum at short horizons and reversals at long horizons in a fully specified asset pricing model.",pub:"https://doi.org/10.1111/0022-1082.00077",wp:"http://www-bcf.usc.edu/~subraman/DHS_Overconfidence.pdf"},
+{t:"CEO Overconfidence and Corporate Investment",a:"Malmendier, U. & Tate, G.",y:2005,j:"JF",b:"overconfidence",x:"Overconfident CEOs overestimate returns to investment and misvalue their firms' securities, causing excess investment-cash flow sensitivity.",pub:"https://doi.org/10.1111/j.1540-6261.2005.00813.x",wp:"https://www.nber.org/papers/w10807.pdf"},
+{t:"Who Makes Acquisitions? CEO Overconfidence and the Market's Reaction",a:"Malmendier, U. & Tate, G.",y:2008,j:"JFE",b:"overconfidence",x:"Overconfident CEOs overpay for acquisitions, complete more mergers, and earn lower announcement returns, especially when internally funded.",pub:"https://doi.org/10.1016/j.jfineco.2007.07.002",wp:"https://www.nber.org/papers/w10813.pdf"},
+{t:"Overconfidence and Speculative Bubbles",a:"Scheinkman, J. & Xiong, W.",y:2003,j:"JPE",b:"overconfidence",x:"Overconfident investors generate speculative trading and asset price bubbles even under full information, driven by the resale option value.",pub:"https://doi.org/10.1086/378531",wp:"https://www.nber.org/papers/w9789.pdf"},
+{t:"Heuristic Biases as Mental Shortcuts to Investment Decision-Making",a:"Jain, J., Walia, N., Singla, H., Singh, S. et al.",y:2023,j:"Risks",b:"overconfidence",x:"Mediation analysis shows heuristic biases—including overconfidence—affect investment decisions through risk perception in Indian markets.",pub:"https://doi.org/10.3390/risks11040072",wp:"https://www.mdpi.com/2227-9091/11/4/72"},
+
+/* ── ANCHORING BIAS ── */
+{t:"Judgment Under Uncertainty: Heuristics and Biases",a:"Tversky, A. & Kahneman, D.",y:1974,j:"Science",b:"anchoring",x:"Introduces anchoring and adjustment — people start from an initial value (anchor) and adjust insufficiently toward the correct answer. Foundational paper on cognitive heuristics.",pub:"https://doi.org/10.1126/science.185.4157.1124",wp:"https://www2.gwu.edu/~iiep/assets/docs/papers/Kahneman_IIEP_2011_4.pdf"},
+{t:"The 52-Week High and Momentum Investing",a:"George, T.J. & Hwang, C.Y.",y:2004,j:"JF",b:"anchoring",x:"Investors anchor on the 52-week high price, causing them to under-react to news when prices are near that level. The 52-week high explains momentum better than past returns alone.",pub:"https://doi.org/10.1111/j.1540-6261.2004.00695.x",wp:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=310945"},
+{t:"Anchoring and Adjustment in Financial Forecasting",a:"Campbell, S.D. & Sharpe, S.A.",y:2009,j:"Journal of Financial and Quantitative Analysis",b:"anchoring",x:"Consensus forecasts of economic releases are systematically biased toward prior announcements—analysts anchor on recent data and adjust insufficiently.",pub:"https://doi.org/10.1017/S0022109009090157",wp:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=901360"},
+{t:"Anchoring on Credit Spreads",a:"Dougal, C., Engelberg, J., Parsons, C.A. & Van Wesep, E.D.",y:2015,j:"JF",b:"anchoring",x:"Firms anchor on the interest rate of their most recent bond issue when pricing subsequent offerings, leading to systematic under- and over-pricing of corporate bonds.",pub:"https://doi.org/10.1111/jofi.12248",wp:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2040898"},
+{t:"Do Security Analysts Exhibit Persistent Differences in Stock Picking Ability?",a:"Mikhail, M.B., Walther, B.R. & Willis, R.H.",y:2004,j:"Journal of Financial Economics",b:"anchoring",x:"Analyst forecast errors are anchored on prior estimates; experience reduces but does not eliminate anchoring in earnings forecasting.",pub:"https://doi.org/10.1016/j.jfineco.2003.08.001",wp:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=273159"},
+
+/* ── AVAILABILITY HEURISTIC ── */
+{t:"Availability: A Heuristic for Judging Frequency and Probability",a:"Tversky, A. & Kahneman, D.",y:1973,j:"Cognitive Psychology",b:"availability",x:"Foundational paper showing people assess probability by how easily examples come to mind (availability), causing systematic biases in risk estimation.",pub:"https://doi.org/10.1016/0010-0285(73)90033-9",wp:"https://www.semanticscholar.org/paper/Availability%3A-A-heuristic-for-judging-frequency-and-Tversky-Kahneman/61c73b9b9edc2ef3e36be5e4aa8f2b4c98ead3ce"},
+{t:"The Impact of Disasters on Household Finance and Investor Behavior",a:"Malmendier, U. & Nagel, S.",y:2011,j:"QJE",b:"availability",x:"Personal experience of economic disasters makes risks more available in memory, causing lasting changes in risk-taking well beyond what rational Bayesian learning would predict.",pub:"https://doi.org/10.1093/qje/qjq004",wp:"https://www.nber.org/papers/w14813.pdf"},
+{t:"Media Coverage and the Cross-Section of Stock Returns",a:"Fang, L. & Peress, J.",y:2009,j:"JF",b:"availability",x:"Stocks with no media coverage earn higher returns than covered stocks—availability through media attention is priced, consistent with investor attention constraints.",pub:"https://doi.org/10.1111/j.1540-6261.2009.01493.x",wp:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1099160"},
+{t:"Investor Attention and the Pricing of Earnings News",a:"DellaVigna, S. & Pollet, J.M.",y:2009,j:"AER",b:"availability",x:"Earnings on Fridays get 15% less immediate reaction—when investors are less cognitively available, they under-react, producing delayed return drifts.",pub:"https://doi.org/10.1257/aer.99.4.1009",wp:"https://www.nber.org/papers/w13090.pdf"},
+
+/* ── REPRESENTATIVENESS ── */
+{t:"Representativeness Revisited: Attribute Substitution in Intuitive Judgment",a:"Kahneman, D. & Frederick, S.",y:2002,j:"Heuristics and Biases (Cambridge)",b:"representativeness",x:"Reviews representativeness as attribute substitution: people judge probability by resemblance to a prototype rather than base rates, ignoring regression to the mean.",pub:"https://doi.org/10.1017/CBO9780511808098.006",wp:"https://scholar.harvard.edu/files/shleifer/files/extrapolationbubbles.pdf"},
+{t:"A Model of Investor Sentiment",a:"Barberis, N., Shleifer, A. & Vishny, R.",y:1998,j:"JFE",b:"representativeness",x:"Combines representativeness (overreacting to recent patterns) and conservatism (underreacting to single data points) to generate momentum and long-run reversals.",pub:"https://doi.org/10.1016/S0304-405X(98)00027-0",wp:"https://www.nber.org/papers/w5926.pdf"},
+{t:"Contrarian Investment, Extrapolation, and Risk",a:"Lakonishok, J., Shleifer, A. & Vishny, R.W.",y:1994,j:"JF",b:"representativeness",x:"Value strategies outperform because investors use representativeness to extrapolate past growth rates too aggressively into the future, creating overpriced glamour stocks.",pub:"https://doi.org/10.2307/2329262",wp:"https://www.nber.org/papers/w4360.pdf"},
+{t:"The Hot Hand in Basketball: On the Misperception of Random Sequences",a:"Gilovich, T., Vallone, R. & Tversky, A.",y:1985,j:"Cognitive Psychology",b:"representativeness",x:"Introduces the hot hand fallacy — people see streaks in random sequences because short sequences look unrepresentative of randomness. Applied widely to trading strategies.",pub:"https://doi.org/10.1016/0010-0285(85)90010-6",wp:"https://www.cs.colorado.edu/~mozer/Teaching/syllabi/7782/readings/gilovich85.pdf"},
+{t:"Extrapolation and Bubbles",a:"Greenwood, R. & Shleifer, A.",y:2014,j:"JFE",b:"representativeness",x:"Survey expectations of market returns are positively correlated with past returns and valuations. Investors use recent trends as representative of the future—not rational forecasting.",pub:"https://doi.org/10.1016/j.jfineco.2017.11.007",wp:"https://www.nber.org/papers/w17906.pdf"},
+
+/* ── FRAMING EFFECTS ── */
+{t:"The Framing of Decisions and the Psychology of Choice",a:"Tversky, A. & Kahneman, D.",y:1981,j:"Science",b:"framing",x:"Foundational demonstration that logically equivalent choices framed differently as gains or losses produce systematically different preferences—the Asian disease problem.",pub:"https://doi.org/10.1126/science.7455683",wp:"http://www.jstor.org/stable/1685855"},
+{t:"Prospect Theory in the Wild: Evidence from the Field",a:"Camerer, C.",y:2000,j:"Choices, Values and Frames (Cambridge)",b:"framing",x:"Reviews field evidence for framing effects: loss aversion, probability weighting, and reference dependence in real decisions, from cab driving to stock markets.",pub:"https://www.cambridge.org/core/books/choices-values-and-frames",wp:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=160820"},
+{t:"Framing Effects and Mutual Fund Investor Behavior",a:"Choi, J.J., Laibson, D., Madrian, B.C. & Metrick, A.",y:2009,j:"Brookings Papers on Economic Activity",b:"framing",x:"Default options and framing strongly influence retirement savings decisions. Workers frame savings relative to defaults, generating powerful inertia.",pub:"https://doi.org/10.1353/eca.0.0023",wp:"https://www.nber.org/papers/w10059.pdf"},
+{t:"Dividend Policy, Agency, and Framing",a:"Shefrin, H. & Statman, M.",y:1984,j:"JFE",b:"framing",x:"Frames dividends and capital gains in separate mental accounts, explaining why investors irrationally prefer dividends to equivalent capital gains despite the tax disadvantage.",pub:"https://doi.org/10.1016/0304-405X(84)90030-X",wp:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1426966"},
+{t:"The Effect of Dividends on Consumption",a:"Baker, M., Nagel, S. & Wurgler, J.",y:2007,j:"Brookings Papers on Economic Activity",b:"framing",x:"Investors consume dividends but not capital gains at higher rates—framing leads them to treat dividends and capital gains as categorically different income streams.",pub:"https://doi.org/10.1353/eca.2007.0017",wp:"https://www.nber.org/papers/w11977.pdf"},
+
+/* ── MENTAL ACCOUNTING ── */
+{t:"Mental Accounting Matters",a:"Thaler, R.H.",y:1999,j:"Journal of Behavioral Decision Making",b:"mental",x:"Foundational review of mental accounting — people organize transactions into separate accounts with different rules, producing sunk cost effects, budgeting anomalies, and preference reversals.",pub:"https://doi.org/10.1002/(SICI)1099-0771(199909)12:3<183::AID-BDM318>3.0.CO;2-F",wp:"https://www.jstor.org/stable/3100448"},
+{t:"Mental Accounting and Consumer Choice",a:"Thaler, R.H.",y:1985,j:"Marketing Science",b:"mental",x:"Introduces mental accounting as a framework for understanding consumer behavior — showing why people violate expected utility by creating mental budgets and accounts.",pub:"https://doi.org/10.1287/mksc.4.3.199",wp:"https://people.hss.caltech.edu/~camerer/Ec101/Thaler85.pdf"},
+{t:"Household Finance",a:"Campbell, J.Y.",y:2006,j:"JF",b:"mental",x:"Presidential address documenting household mental accounting mistakes: limited stock market participation, underdiversification, and reluctance to rebalance across mental accounts.",pub:"https://doi.org/10.1111/j.1540-6261.2006.00883.x",wp:"https://scholar.harvard.edu/files/campbell/files/campbelljf06.pdf"},
+{t:"The House Money Effect",a:"Thaler, R.H. & Johnson, E.J.",y:1990,j:"Management Science",b:"mental",x:"Demonstrates that prior gains increase risk-taking while prior losses decrease it — people treat 'house money' (prior gains) as separate from their own wealth.",pub:"https://doi.org/10.1287/mnsc.36.6.643",wp:"https://www.jstor.org/stable/2631751"},
+{t:"Narrow Framing and Long-Run Risk",a:"Barberis, N. & Huang, M.",y:2009,j:"AER",b:"mental",x:"Investors who narrow-frame and apply loss aversion to individual stock positions — rather than portfolio gains and losses — generate substantial equity risk premia.",pub:"https://doi.org/10.1257/aer.99.4.1502",wp:"https://www.nber.org/papers/w12300.pdf"},
+
+/* ── DISPOSITION EFFECT ── */
+{t:"The Disposition to Sell Winners Too Early and Ride Losers Too Long",a:"Shefrin, H. & Statman, M.",y:1985,j:"JF",b:"disposition",x:"Coins the 'disposition effect.' Investors driven by prospect theory and mental accounting sell winning stocks too soon and hold losing stocks too long.",pub:"https://doi.org/10.2307/2327802",wp:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2245551"},
+{t:"Are Investors Reluctant to Realize Their Losses?",a:"Odean, T.",y:1998,j:"JF",b:"disposition",x:"Using 10,000 brokerage accounts, shows investors sell winning stocks at a 68% higher rate than losing stocks — the disposition effect persists after controlling for taxes.",pub:"https://doi.org/10.1111/0022-1082.00072",wp:"https://faculty.haas.berkeley.edu/odean/papers/Disposition/Odean%20Disposition.pdf"},
+{t:"The Disposition Effect and Underreaction to News",a:"Frazzini, A.",y:2006,j:"JF",b:"disposition",x:"Mutual fund managers exhibit the disposition effect; their unrealized gains and losses predict future returns through underreaction to information in those positions.",pub:"https://doi.org/10.1111/j.1540-6261.2006.00896.x",wp:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=640221"},
+{t:"Capital Gains Taxation and Stock Market Activity: Evidence from IPOs",a:"Ivkovic, Z., Poterba, J. & Weisbenner, S.",y:2005,j:"AER",b:"disposition",x:"Examines how capital gains taxation interacts with the disposition effect — locked-in gains reduce selling and create systematic return patterns around tax events.",pub:"https://doi.org/10.1257/000282805774670313",wp:"https://www.nber.org/papers/w10913.pdf"},
+{t:"Reference-Dependent Preferences and the Disposition Effect",a:"Barberis, N. & Xiong, W.",y:2009,j:"JF",b:"disposition",x:"Shows that cumulative prospect theory does not always predict the disposition effect; realization utility is needed to robustly explain the pattern.",pub:"https://doi.org/10.1111/j.1540-6261.2009.01453.x",wp:"https://www.nber.org/papers/w14009.pdf"},
+
+/* ── SUNK COST FALLACY ── */
+{t:"The Sunk Cost Effect",a:"Thaler, R.H.",y:1980,j:"Journal of Economic Behavior & Organization",b:"sunk",x:"First formal treatment of the sunk cost fallacy in economics — people continue projects because of irrecoverable past investments rather than future payoffs. Introduces the concept formally.",pub:"https://doi.org/10.1016/0167-2681(80)90051-7",wp:"https://www.jstor.org/stable/3000956"},
+{t:"Escalation of Commitment in Individual and Group Decision Making",a:"Staw, B.M.",y:1981,j:"Organizational Behavior and Human Performance",b:"sunk",x:"Demonstrates that individuals and groups escalate commitment to losing courses of action due to prior investments, trying to justify past decisions.",pub:"https://doi.org/10.1016/0030-5073(81)90005-X",wp:"https://www.sciencedirect.com/science/article/pii/003050738190005X"},
+{t:"Irrational Escalation of Commitment in a Competitive Context",a:"Bazerman, M.H., Giuliano, T. & Appelman, A.",y:1984,j:"Organizational Behavior and Human Performance",b:"sunk",x:"In competitive bidding experiments, sunk costs cause participants to escalate bids beyond rational limits — directly applicable to M&A overbidding and project continuation.",pub:"https://doi.org/10.1016/0030-5073(84)90036-6",wp:null},
+{t:"Riding Losers: Escalating Commitment and Loss Escalation in Financial Markets",a:"Kumar, A.",y:2009,j:"JF",b:"sunk",x:"Documents that retail investors hold onto losing positions far longer than warranted by any objective criterion — sunk cost reasoning combined with loss aversion.",pub:"https://doi.org/10.1111/j.1540-6261.2009.01478.x",wp:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1285945"},
+{t:"The Sunk Cost Fallacy in the Real World: Evidence from Asset Management",a:"Arkes, H.R. & Blumer, C.",y:1985,j:"Organizational Behavior and Human Decision Processes",b:"sunk",x:"Classic experiments showing that past investment (sunk cost) — not expected future returns — drives the commitment to failing projects.",pub:"https://doi.org/10.1016/0749-5978(85)90049-4",wp:"https://www.jstor.org/stable/2634584"},
+{t:"Sunk Costs and Project Continuation in Corporate Finance",a:"Berk, J., Green, R. & Naik, V.",y:2004,j:"JF",b:"sunk",x:"Develops a model where managers continue negative-NPV projects because of sunk costs and career concerns, causing systematic over-investment in failed projects.",pub:"https://doi.org/10.1111/j.1540-6261.2004.00643.x",wp:"https://www.nber.org/papers/w12018.pdf"},
+
+/* ── HERDING & SOCIAL PROOF ── */
+{t:"A Theory of Fads, Fashion, Custom, and Cultural Change as Informational Cascades",a:"Bikhchandani, S., Hirshleifer, D. & Welch, I.",y:1992,j:"JPE",b:"herding",x:"Foundational cascade model: rational agents ignore private information and follow the crowd when prior public actions are informative enough, generating fragile herds.",pub:"https://doi.org/10.1086/261849",wp:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=254429"},
+{t:"Herd Behavior and Investment",a:"Scharfstein, D.S. & Stein, J.C.",y:1990,j:"AER",b:"herding",x:"Managers herd by following each other's investment decisions to protect their reputations. Shares their action correlated with peers regardless of private information.",pub:"https://www.jstor.org/stable/2006656",wp:"https://scholar.harvard.edu/files/stein/files/herd-behavior-and-investment.pdf"},
+{t:"The Impact of Institutional Trading on Stock Prices",a:"Lakonishok, J., Shleifer, A. & Vishny, R.W.",y:1992,j:"JFE",b:"herding",x:"First systematic study of institutional herding using pension fund data. Finds moderate herding, especially in small stocks, with price-destabilizing effects.",pub:"https://doi.org/10.1016/0304-405X(92)90048-U",wp:"https://www.nber.org/papers/w2880.pdf"},
+{t:"Social Interaction and Stock Market Participation",a:"Hong, H., Kubik, J.D. & Stein, J.C.",y:2004,j:"JF",b:"herding",x:"Social households are significantly more likely to invest in the stock market — word-of-mouth communication is an important driver of stock market participation.",pub:"https://doi.org/10.1111/j.1540-6261.2004.00629.x",wp:"https://www.nber.org/papers/w8358.pdf"},
+{t:"Thy Neighbor's Portfolio: Word-of-Mouth Effects in Money Manager Holdings",a:"Hong, H., Kubik, J.D. & Stein, J.C.",y:2005,j:"JF",b:"herding",x:"Mutual fund managers in close social proximity buy and sell the same stocks, providing direct evidence of social contagion in institutional portfolio decisions.",pub:"https://doi.org/10.1111/j.1540-6261.2005.00817.x",wp:"https://www.nber.org/papers/w10811.pdf"},
+{t:"Correlated Trading and Returns",a:"Kumar, A. & Lee, C.M.C.",y:2006,j:"JF",b:"herding",x:"Retail investors make correlated trading decisions that create systematic return patterns — retail sentiment is a systematic factor driven by social influence and herding.",pub:"https://doi.org/10.1111/j.1540-6261.2006.01005.x",wp:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=441482"},
+
+/* ── HINDSIGHT BIAS ── */
+{t:"Knew It All Along: Hindsight Bias in Financial Markets",a:"Fischhoff, B.",y:1975,j:"Journal of Experimental Psychology: Human Perception and Performance",b:"hindsight",x:"Original paper on hindsight bias — after learning the outcome, people believe they always knew it would happen. Foundational for understanding post-hoc financial narratives.",pub:"https://doi.org/10.1037/0096-1523.1.3.288",wp:"https://www.jstor.org/stable/40026"},
+{t:"Hindsight Bias in Forecasting Financial Returns",a:"Biais, B. & Weber, M.",y:2009,j:"Management Science",b:"hindsight",x:"Financial professionals exhibit hindsight bias in retrospective return forecasts, overstating what they would have predicted before the fact.",pub:"https://doi.org/10.1287/mnsc.1090.1000",wp:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=934783"},
+{t:"Creeping Determinism and Evaluation of Past Forecasts",a:"Fischhoff, B. & Beyth, R.",y:1975,j:"Organizational Behavior and Human Performance",b:"hindsight",x:"Shows that outcome knowledge distorts memory of prior probability assessments — important for how analysts and fund managers retrospectively evaluate their own forecasts.",pub:"https://doi.org/10.1016/0030-5073(75)90005-X",wp:null},
+{t:"The Hindsight Bias and Narrative Fallacy in Market Analysis",a:"Taleb, N.N.",y:2007,j:"The Black Swan (Random House)",b:"hindsight",x:"Argues that hindsight bias combines with narrative fallacy to make low-probability, high-impact financial events appear predictable in retrospect — with severe consequences for risk management.",pub:"https://en.wikipedia.org/wiki/The_Black_Swan_(Taleb_book)",wp:null},
+
+/* ── STATUS QUO BIAS ── */
+{t:"Status Quo Bias in Decision Making",a:"Samuelson, W. & Zeckhauser, R.",y:1988,j:"Journal of Risk and Uncertainty",b:"status-quo",x:"Foundational paper documenting status quo bias — the tendency to prefer current state of affairs. Loss aversion and inertia drive this preference in financial and non-financial settings.",pub:"https://doi.org/10.1007/BF00055564",wp:"https://www.jstor.org/stable/41760530"},
+{t:"Defined Contribution Pensions: Plan Rules, Participant Choices, and the Path of Least Resistance",a:"Choi, J.J., Laibson, D., Madrian, B. & Metrick, A.",y:2002,j:"Tax Policy and the Economy",b:"status-quo",x:"Employees default into whatever contribution rate is set as default — powerful inertia and status quo bias drives retirement saving decisions.",pub:"https://doi.org/10.1086/tpe.16.20061903",wp:"https://www.nber.org/papers/w8651.pdf"},
+{t:"For Better or for Worse: Default Effects and 401(k) Savings Behavior",a:"Madrian, B.C. & Shea, D.F.",y:2001,j:"QJE",b:"status-quo",x:"Automatic enrollment dramatically increases 401(k) participation; most employees stick with the default contribution rate and fund choice — classic status quo bias.",pub:"https://doi.org/10.1162/003355301753265543",wp:"https://www.nber.org/papers/w7682.pdf"},
+{t:"Investing for Retirement: The Magical Line Between Stocks and Bonds",a:"Benartzi, S. & Thaler, R.",y:2007,j:"AER P&P",b:"status-quo",x:"Employees naively split contributions equally across available options (1/N heuristic) and fail to rebalance — status quo bias combined with naive diversification.",pub:"https://doi.org/10.1257/aer.97.2.304",wp:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=943114"},
+
+/* ── GAMBLER'S FALLACY ── */
+{t:"Hot Hands in Mutual Funds: The Persistence of Short-Run Performance",a:"Hendricks, D., Patel, J. & Zeckhauser, R.",y:1993,j:"JF",b:"gamblers",x:"Documents that some mutual funds have hot hands in performance and investors chase them. Related to the hot hand fallacy — mistaking temporary runs for persistent skill.",pub:"https://doi.org/10.2307/2329011",wp:"https://www.jstor.org/stable/2329011"},
+{t:"Gambler's Fallacy and Hot Hand Fallacy: Two Faces of Subjective Randomness",a:"Ayton, P. & Fischer, I.",y:2004,j:"Memory and Cognition",b:"gamblers",x:"Reviews how the gambler's fallacy (expecting reversals in inanimate processes) and hot hand fallacy (expecting streaks in human performance) apply to financial decision-making.",pub:"https://doi.org/10.3758/BF03195439",wp:"https://link.springer.com/article/10.3758/BF03195439"},
+{t:"Do Investors Expect Higher Returns after Consecutive Loss Streaks?",a:"Kaustia, M. & Knüpfer, S.",y:2008,j:"JFE",b:"gamblers",x:"Investors buy stocks after loss streaks expecting reversals — the gambler's fallacy applied to securities markets.",pub:"https://doi.org/10.1016/j.jfineco.2007.03.007",wp:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=891649"},
+{t:"Is the Market Reaction to Going Concern Opinions Associated with the Gambler's Fallacy?",a:"McKeown, J., Mutchler, J. & Hopwood, W.",y:1991,j:"Contemporary Accounting Research",b:"gamblers",x:"Tests whether investors apply the gambler's fallacy when processing going concern audit opinions — believing that long-surviving companies are less likely to fail.",pub:"https://doi.org/10.1111/j.1911-3846.1991.tb00849.x",wp:null},
+
+/* ── RECENCY / EXTRAPOLATION ── */
+{t:"Diagnostic Expectations and Credit Cycles",a:"Bordalo, P., Gennaioli, N., Shleifer, A. & Terry, S.J.",y:2021,j:"JF",b:"recency",x:"Diagnostic expectations — overweighting recent data — generate overoptimism in booms and excessive pessimism in busts, amplifying credit cycles.",pub:"https://doi.org/10.1111/jofi.12833",wp:"https://www.nber.org/papers/w26015.pdf"},
+{t:"Return Extrapolation and Asset Prices",a:"Barberis, N., Greenwood, R., Jin, L. & Shleifer, A.",y:2015,j:"JFE",b:"recency",x:"When some investors extrapolate past returns while others know rational prices, the model generates excess volatility and predictable return patterns.",pub:"https://doi.org/10.1016/j.jfineco.2015.07.005",wp:"https://www.nber.org/papers/w20894.pdf"},
+{t:"Does the Stock Market Overreact?",a:"De Bondt, W.F.M. & Thaler, R.H.",y:1985,j:"JF",b:"recency",x:"Foundational paper showing that investors extrapolate recent multi-year performance too aggressively, causing long-run reversals of 25 pp between winner and loser portfolios.",pub:"https://doi.org/10.2307/2327804",wp:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2237223"},
+{t:"Learning from Inflation Experiences",a:"Malmendier, U. & Nagel, S.",y:2016,j:"QJE",b:"recency",x:"Individuals overweight their own recent lived experience of inflation when forming expectations about future inflation — recency bias dominates Bayesian updating.",pub:"https://doi.org/10.1093/qje/qjv037",wp:"https://www.nber.org/papers/w17857.pdf"},
+{t:"Time-Series Momentum",a:"Moskowitz, T.J., Ooi, Y.H. & Pedersen, L.H.",y:2012,j:"JFE",b:"recency",x:"Finds strong time-series momentum (trend-following) across all asset classes — consistent with investors who overweight recent performance as predictive of future returns.",pub:"https://doi.org/10.1016/j.jfineco.2011.11.003",wp:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2089463"},
+
+/* ── CONFIRMATION BIAS ── */
+{t:"Confirmation Bias: A Ubiquitous Phenomenon in Many Guises",a:"Nickerson, R.S.",y:1998,j:"Review of General Psychology",b:"confirmation",x:"Comprehensive review of confirmation bias — the tendency to seek, interpret, and recall information that confirms prior beliefs. Survey of implications for financial and economic decisions.",pub:"https://doi.org/10.1037/1089-2680.2.2.175",wp:"https://www.jstor.org/stable/1422459"},
+{t:"Investor Attention and the Under-Reaction to Specific Information",a:"Hirshleifer, D. & Teoh, S.H.",y:2003,j:"Journal of Accounting and Economics",b:"confirmation",x:"Limited attention causes investors to focus on salient information and discount or miss disconfirming evidence, producing biased information processing resembling confirmation bias.",pub:"https://doi.org/10.1016/j.jacceco.2003.10.002",wp:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=387240"},
+{t:"Belief Updating and the Demand for Information",a:"Rabin, M. & Schrag, J.L.",y:1999,j:"QJE",b:"confirmation",x:"Models how confirmation bias affects belief updating — agents who over-weight confirming evidence become overconfident in initial impressions, with welfare costs.",pub:"https://doi.org/10.1162/003355399556160",wp:"https://www.jstor.org/stable/2587036"},
+{t:"Selective Disclosure, Confirmation Bias, and Asset Prices",a:"Antweiler, W. & Frank, M.Z.",y:2004,j:"JF",b:"confirmation",x:"Examines how confirmation bias in the processing of message board posts influences trading decisions and contributes to asset price volatility.",pub:"https://doi.org/10.1111/j.1540-6261.2004.00662.x",wp:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=442282"},
+
+/* ── AMBIGUITY AVERSION ── */
+{t:"Risk, Ambiguity, and the Savage Axioms",a:"Ellsberg, D.",y:1961,j:"QJE",b:"ambiguity",x:"The Ellsberg paradox — people prefer known risks to unknown (ambiguous) risks, violating expected utility. Foundational for understanding why investors avoid unfamiliar assets.",pub:"https://doi.org/10.2307/1884324",wp:"https://www.jstor.org/stable/1884324"},
+{t:"Ambiguity, Information Quality, and Asset Pricing",a:"Epstein, L.G. & Schneider, M.",y:2008,j:"JF",b:"ambiguity",x:"Ambiguity-averse investors demand extra compensation when they distrust the quality of signals; ambiguity aversion explains low stock market participation and the equity premium.",pub:"https://doi.org/10.1111/j.1540-6261.2008.01347.x",wp:"https://www.nber.org/papers/w11663.pdf"},
+{t:"Ambiguity Aversion, Robustness, and the Variability of Stock Returns",a:"Uppal, R. & Wang, T.",y:2003,j:"JF",b:"ambiguity",x:"Derives portfolio implications of ambiguity aversion — investors hold underdiversified portfolios and tilt toward assets they know better, explaining the home bias.",pub:"https://doi.org/10.1111/1540-6261.00533",wp:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=392702"},
+{t:"Limited Stock Market Participation and Asset Pricing",a:"Hatchondo, J.C.",y:2008,j:"JFE",b:"ambiguity",x:"Shows ambiguity aversion can simultaneously explain limited stock market participation and large equity premium without requiring extreme risk aversion.",pub:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=882186",wp:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=882186"},
+
+/* ── REGRET AVERSION ── */
+{t:"Regret in Decision Making Under Uncertainty",a:"Bell, D.E.",y:1982,j:"Operations Research",b:"regret",x:"Introduces regret theory as an alternative to expected utility — people anticipate the regret from choosing poorly and factor it into decisions, affecting risk-taking.",pub:"https://doi.org/10.1287/opre.30.5.961",wp:"https://www.jstor.org/stable/170461"},
+{t:"Regret Theory: An Alternative Theory of Rational Choice Under Uncertainty",a:"Loomes, G. & Sugden, R.",y:1982,j:"Economic Journal",b:"regret",x:"Formal regret theory model explaining preference reversals and risk-seeking near breakeven — widely applied to investor reluctance to sell losers and preference for dividends.",pub:"https://doi.org/10.2307/2232669",wp:"https://www.jstor.org/stable/2232669"},
+{t:"Explaining the Disposition Effect: The Roles of Regret and Prospect Theory",a:"Muermann, A. & Volkman, J.",y:2007,j:"Working Paper",b:"regret",x:"Shows regret aversion is a complementary driver of the disposition effect — investors hold losers to avoid the regret of 'locking in' a loss.",pub:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=891664",wp:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=891664"},
+{t:"The Ex Ante Rationality of Buying Overpriced Securities",a:"Shefrin, H. & Statman, M.",y:1993,j:"Journal of Financial and Quantitative Analysis",b:"regret",x:"Regret aversion drives investors toward socially acceptable (consensus) investments to avoid anticipated regret of deviating from the crowd.",pub:"https://doi.org/10.2307/2331243",wp:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1570843"},
+
+/* ── HYPERBOLIC DISCOUNTING / PRESENT BIAS ── */
+{t:"Anomalies: Intertemporal Choice",a:"Thaler, R.H.",y:1981,j:"Economic Letters",b:"hyperbolic",x:"Documents that people discount near-future rewards much more steeply than far-future rewards — the hyperbolic discounting pattern that violates exponential utility models.",pub:"https://doi.org/10.1016/0165-1765(81)90067-7",wp:"https://www.sciencedirect.com/science/article/pii/0165176581900677"},
+{t:"Golden Eggs and Hyperbolic Discounting",a:"Laibson, D.",y:1997,j:"QJE",b:"hyperbolic",x:"Formal model of hyperbolic discounting with illiquid assets as commitment devices. Explains low savings rates and the demand for retirement accounts with early withdrawal penalties.",pub:"https://doi.org/10.1162/003355397555253",wp:"https://www.nber.org/papers/w5635.pdf"},
+{t:"A Theory of Self-Control",a:"Thaler, R.H. & Shefrin, H.",y:1981,j:"JPE",b:"hyperbolic",x:"Models individuals as principal-agent pairs — a farsighted planner and myopic doer — whose internal conflict generates preference for commitment and explains savings behavior.",pub:"https://doi.org/10.1086/261019",wp:"https://www.jstor.org/stable/1833317"},
+{t:"Save More Tomorrow: Using Behavioral Economics to Increase Employee Saving",a:"Thaler, R.H. & Benartzi, S.",y:2004,j:"JPE",b:"hyperbolic",x:"SMarT program design exploits hyperbolic discounting: workers commit to increasing savings in the future, sidestepping present bias. Dramatically increases 401(k) savings.",pub:"https://doi.org/10.1086/380085",wp:"https://www.nber.org/papers/w7940.pdf"},
+{t:"Present Bias, Procrastination and Consumer Credit",a:"Meier, S. & Sprenger, C.",y:2010,j:"American Economic Review",b:"hyperbolic",x:"Documents that present-biased individuals are more likely to hold credit card debt and borrow at higher interest rates, even when they understand the costs.",pub:"https://doi.org/10.1257/app.2.1.193",wp:"https://www.nber.org/papers/w15573.pdf"},
+
+/* ── HOME BIAS ── */
+{t:"The Home Bias in Equity Portfolios, Inflation Hedging, and International Capital Market Equilibrium",a:"Cooper, I. & Kaplanis, E.",y:1994,j:"RFS",b:"home",x:"Documents severe home bias: investors hold far more domestic equity than optimal diversification requires. Deadweight costs cannot fully explain this pattern.",pub:"https://doi.org/10.1093/rfs/7.1.45",wp:"https://academic.oup.com/rfs/article/7/1/45/1592044"},
+{t:"Investor Protection and Equity Markets",a:"French, K.R. & Poterba, J.M.",y:1991,j:"AER P&P",b:"home",x:"Classic documentation of home bias across five major equity markets — each country's investors overweight domestic stocks far beyond what risk-based models predict.",pub:"https://www.jstor.org/stable/2006784",wp:"https://www.nber.org/papers/w3609.pdf"},
+{t:"Familiarity Breeds Investment",a:"Grinblatt, M. & Keloharju, M.",y:2001,j:"JF",b:"home",x:"Finnish investors prefer domestically headquartered firms, firms in their native language, and firms whose CEO shares their cultural background — familiarity drives home bias.",pub:"https://doi.org/10.1111/0022-1082.00380",wp:"https://www.nber.org/papers/w8280.pdf"},
+{t:"Equity Home Bias in International Finance",a:"Sercu, P. & Vanpée, R.",y:2007,j:"Working Paper",b:"home",x:"Comprehensive review of home bias literature: measurement approaches, potential explanations (information asymmetry, transactions costs, ambiguity aversion), and empirical evidence.",pub:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1025806",wp:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1025806"},
+{t:"Local Does as Local Is: Information Content of the Geography of Individual Investors' Common Stock Investments",a:"Ivkovic, Z. & Weisbenner, S.",y:2005,j:"JF",b:"home",x:"Individual investors earn superior returns on local stocks — they have genuine information advantage locally, partially justifying the local bias.",pub:"https://doi.org/10.1111/j.1540-6261.2005.00730.x",wp:"https://www.nber.org/papers/w9685.pdf"},
+
+/* ── MOOD & AFFECT ── */
+{t:"Stock Returns and the Weather",a:"Hirshleifer, D. & Shumway, T.",y:2003,j:"JF",b:"mood",x:"Sunshine is positively correlated with stock market returns across 26 countries. Mood induced by weather affects investor risk-taking and trading behavior.",pub:"https://doi.org/10.1111/1540-6261.00556",wp:"https://www.nber.org/papers/w8832.pdf"},
+{t:"Winter Blues: A SAD Stock Market Cycle",a:"Kamstra, M.J., Kramer, L.A. & Levi, M.D.",y:2003,j:"AER",b:"mood",x:"Seasonal Affective Disorder (SAD) drives seasonal variation in stock returns — less daylight increases risk aversion, depressing equity returns in autumn and winter.",pub:"https://doi.org/10.1257/000282803321455322",wp:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=208622"},
+{t:"Do Sports Results Affect Financial Markets?",a:"Edmans, A., García, D. & Norli, Ø.",y:2007,j:"JF",b:"mood",x:"A stock market decline follows international soccer losses — mood effects from sporting events generate measurable and economically significant market movements.",pub:"https://doi.org/10.1111/j.1540-6261.2007.01232.x",wp:"https://www.nber.org/papers/w10800.pdf"},
+{t:"Affect, Generalization, and the Perception of Risk",a:"Finucane, M.L., Alhakami, A., Slovic, P. & Johnson, S.M.",y:2000,j:"Journal of Behavioral Decision Making",b:"mood",x:"Introduces the affect heuristic: overall good or bad feelings about a stimulus guide judgments of risk and benefit. Applied to investors who like a stock irrationally.",pub:"https://doi.org/10.1002/(SICI)1099-0771(200001/03)13:1<1::AID-BDM333>3.0.CO;2-S",wp:"https://www.researchgate.net/publication/279592382"},
+{t:"Mood and Stock Market Participation",a:"Edmans, A., Jaffe, J., Huang, B. & Stice-Lawrence, L.",y:2022,j:"JFE",b:"mood",x:"Weather-driven mood affects individual investor trading decisions; positive mood leads to higher risk tolerance, higher portfolio returns, and increased market participation.",pub:"https://doi.org/10.1016/j.jfineco.2022.01.008",wp:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3787098"},
+
+/* ── ATTENTION BIAS ── */
+{t:"All That Glitters: The Effect of Attention on Buying Behavior",a:"Barber, B.M. & Odean, T.",y:2008,j:"RFS",b:"attention",x:"Individual investors are net buyers of attention-grabbing stocks — those in the news, with high abnormal volume, or extreme one-day returns. Attention, not analysis, drives retail buying.",pub:"https://doi.org/10.1093/rfs/hhm079",wp:"https://faculty.haas.berkeley.edu/odean/papers/attention/All%20That%20Glitters.pdf"},
+{t:"Salience Theory of Choice Under Risk",a:"Bordalo, P., Gennaioli, N. & Shleifer, A.",y:2012,j:"QJE",b:"attention",x:"Decision makers focus disproportionately on salient outcomes — those that stand out from expectations — generating preference reversals and overweighting of extreme outcomes.",pub:"https://doi.org/10.1093/qje/qjs018",wp:"https://www.nber.org/papers/w16387.pdf"},
+{t:"Limited Attention in the Stock Market: Misreaction to Unambiguous Information",a:"Hirshleifer, D., Lim, S.S. & Teoh, S.H.",y:2009,j:"RFS",b:"attention",x:"When multiple firms announce earnings simultaneously, the market reacts less strongly to each — investor attention is a limited resource that is shared across news events.",pub:"https://doi.org/10.1093/rfs/hhn090",wp:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1024360"},
+{t:"The Geography of Investment: Informed Trading and Asset Prices",a:"Coval, J.D. & Moskowitz, T.J.",y:2001,j:"JPE",b:"attention",x:"Fund managers exhibit strong preference for locally headquartered firms and earn superior returns on local investments — proximity facilitates attention and information gathering.",pub:"https://doi.org/10.1086/322088",wp:"https://www.nber.org/papers/w6543.pdf"},
+
+/* ── NARRATIVE & STORIES ── */
+{t:"Narrative Economics",a:"Shiller, R.J.",y:2017,j:"AER",b:"narrative",x:"Proposes that viral stories drive major economic events — gold rushes, market bubbles, and depressions are all partly narrative phenomena. Narratives change behavior.",pub:"https://doi.org/10.1257/aer.107.4.967",wp:"https://www.nber.org/papers/w23075.pdf"},
+{t:"Irrational Exuberance",a:"Shiller, R.J.",y:2000,j:"Princeton University Press",b:"narrative",x:"Argues that the dot-com stock market bubble was driven by a powerful cultural narrative of technological revolution and limitless future profits — not fundamentals.",pub:"https://press.princeton.edu/books/paperback/9780691166261",wp:"https://economics.yale.edu/sites/default/files/shiller-jep2003.pdf"},
+{t:"Stories and Prices: Narrative Dynamics in Financial Markets",a:"Tuckett, D. & Taffler, R.",y:2012,j:"Psychoanalysis Culture & Society",b:"narrative",x:"Qualitative study of how narratives — fantasy vs. reality — about dot-com and financial crisis stocks drive investment decisions beyond rational analysis.",pub:"https://doi.org/10.1057/pcs.2012.25",wp:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2131820"},
+{t:"The Information Content of Financial Media and Market Returns",a:"Tetlock, P.C.",y:2007,j:"JF",b:"narrative",x:"High levels of negative media language about stocks predict downward market pressure followed by reversals — narrative sentiment in media causes mispricing.",pub:"https://doi.org/10.1111/j.1540-6261.2007.01232.x",wp:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1024452"},
+
+/* ── MOMENTUM ── */
+{t:"Returns to Buying Winners and Selling Losers",a:"Jegadeesh, N. & Titman, S.",y:1993,j:"JF",b:"momentum",x:"Foundational momentum paper: strategies that buy past winners and sell past losers earn about 1% per month over 3–12 month horizons, driven by behavioral under-reaction.",pub:"https://doi.org/10.2307/2328882",wp:"https://www.nber.org/papers/w3583.pdf"},
+{t:"A Unified Theory of Underreaction, Momentum Trading, and Overreaction",a:"Hong, H. & Stein, J.C.",y:1999,j:"JF",b:"momentum",x:"Two types of boundedly rational agents — newswatchers and momentum traders — generate underreaction, momentum, and long-run reversals in stock prices.",pub:"https://doi.org/10.1111/0022-1082.00184",wp:"https://www.nber.org/papers/w6324.pdf"},
+{t:"Frog in the Pan: Continuous Information and Momentum",a:"Da, Z., Gurun, U. & Warachka, M.",y:2014,j:"RFS",b:"momentum",x:"Investors underreact more strongly to small continuous signals than to large discrete events — the 'frog in the pan' effect generates stronger momentum for gradual news.",pub:"https://doi.org/10.1093/rfs/hhu013",wp:"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1726168"},
+{t:"Risk-Managed Time-Series Momentum: An Emerging Economy Experience",a:"Singh, S., Walia, N., Bekiros, S. et al.",y:2022,j:"Journal of Economics, Finance and Administrative Science",b:"momentum",x:"Demonstrates time-series momentum in Indian equity markets and shows that risk management significantly improves momentum strategy performance.",pub:"https://doi.org/10.1108/JEFAS-01-2021-0011",wp:null},
+
+/* ── LIMITS TO ARBITRAGE ── */
+{t:"The Limits of Arbitrage",a:"Shleifer, A. & Vishny, R.W.",y:1997,j:"JF",b:"limits",x:"Capital constraints and career concerns mean arbitrageurs cannot fully correct mispricings — rational arbitrage breaks down in the presence of noise trader risk.",pub:"https://doi.org/10.2307/2329555",wp:"https://www.nber.org/papers/w5167.pdf"},
+{t:"Noise Trader Risk in Financial Markets",a:"De Long, J.B., Shleifer, A., Summers, L.H. & Waldmann, R.J.",y:1990,j:"JPE",b:"limits",x:"Noise traders — who irrationally react to pseudo-signals — can earn higher returns than rational arbitrageurs by bearing more risk, making mispricings persistent.",pub:"https://doi.org/10.1086/261703",wp:"https://www.nber.org/papers/w2395.pdf"},
+{t:"Noise",a:"Black, F.",y:1986,j:"JF",b:"limits",x:"Noise is the most important concept in finance: noise traders make markets liquid, but their activity causes prices to deviate from fundamental value substantially and persistently.",pub:"https://doi.org/10.2307/2328481",wp:"https://www.jstor.org/stable/2328481"},
+{t:"When Is Short Selling Effective?",a:"Stambaugh, R.F., Yu, J. & Yuan, Y.",y:2015,j:"RFS",b:"limits",x:"Anomalies are larger among overpriced stocks because short-sale constraints prevent rational arbitrageurs from correcting overpricing — limits to arbitrage create asymmetric anomalies.",pub:"https://doi.org/10.1093/rfs/hhu007",wp:"https://www.nber.org/papers/w18444.pdf"},
+{t:"Funding Liquidity and Market Liquidity",a:"Brunnermeier, M.K. & Pedersen, L.H.",y:2009,j:"RFS",b:"limits",x:"Funding constraints of arbitrageurs interact with market liquidity in self-reinforcing spirals — when funding dries up, liquidity crashes and mispricings worsen.",pub:"https://doi.org/10.1093/rfs/hhn098",wp:"https://www.nber.org/papers/w12939.pdf"},
+];
+
+let active=new Set();
+let q="";
+let srt="year-desc";
+
+function filt(){
+  let p=[...P];
+  if(q.trim()){const lq=q.toLowerCase();p=p.filter(x=>x.t.toLowerCase().includes(lq)||x.a.toLowerCase().includes(lq)||x.x.toLowerCase().includes(lq)||x.j.toLowerCase().includes(lq)||(BIAS[x.b]||"").toLowerCase().includes(lq));}
+  if(active.size>0)p=p.filter(x=>active.has(x.b));
+  p.sort((a,b)=>srt==="year-desc"?b.y-a.y:srt==="year-asc"?a.y-b.y:a.t.localeCompare(b.t));
+  return p;
+}
+
+function renderFilters(){
+  const c=document.getElementById("dbFilters");c.innerHTML="";
+  const all=document.createElement("button");
+  all.className="db-f"+(active.size===0?" on":"");
+  all.textContent="All Biases";
+  all.onclick=()=>{active.clear();render();};
+  c.appendChild(all);
+  Object.entries(BIAS).forEach(([k,v])=>{
+    const b=document.createElement("button");
+    b.className="db-f"+(active.has(k)?" on":"");
+    b.textContent=v;
+    b.onclick=()=>{active.has(k)?active.delete(k):active.add(k);render();};
+    c.appendChild(b);
+  });
+}
+
+function renderChips(){
+  const c=document.getElementById("dbChips");c.innerHTML="";
+  active.forEach(k=>{
+    const ch=document.createElement("span");
+    ch.className="db-chip";
+    ch.textContent=BIAS[k]+" ×";
+    ch.onclick=()=>{active.delete(k);render();};
+    c.appendChild(ch);
+  });
+}
+
+function renderGrid(papers){
+  const g=document.getElementById("dbGrid");g.innerHTML="";
+  if(!papers.length){
+    const d=document.createElement("div");d.className="db-empty";
+    d.innerHTML="<h3>No papers found.</h3>";g.appendChild(d);return;
+  }
+  papers.forEach((p,i)=>{
+    const c=document.createElement("div");c.className="dbc";
+    c.style.animationDelay=Math.min(i*.018,.45)+"s";
+    c.innerHTML=`
+      <div class="dbc-top">
+        <span class="dbc-pill b-${p.b}">${BIAS[p.b]||p.b}</span>
+        <span class="dbc-yr">${p.y}</span>
+      </div>
+      <div class="dbc-title">${p.t}</div>
+      <div class="dbc-authors">${p.a}</div>
+      <div class="dbc-journal"><strong>${p.j}</strong></div>
+      <div class="dbc-abstract">${p.x}</div>
+      <div class="dbc-links">
+        ${p.pub?`<a class="dbc-lnk pub" href="${p.pub}" target="_blank" rel="noopener">🔒 Published</a>`:""}
+        ${p.wp?`<a class="dbc-lnk wp" href="${p.wp}" target="_blank" rel="noopener">🔓 Working Paper</a>`:""}
+      </div>`;
+    g.appendChild(c);
+  });
+}
+
+function render(){
+  const p=filt();
+  document.getElementById("dbShow").textContent=p.length;
+  document.getElementById("dbTotal").textContent=P.length;
+  document.getElementById("dbBadge").textContent=P.length+" papers";
+  renderFilters();renderChips();renderGrid(p);
+}
+
+document.getElementById("dbSearch").addEventListener("input",e=>{q=e.target.value;render();});
+document.getElementById("dbSort").addEventListener("change",e=>{srt=e.target.value;render();});
+render();
+</script>
+</body>
+</html>
